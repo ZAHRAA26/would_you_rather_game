@@ -2,10 +2,10 @@ let users = {
   sarahedo: {
     id: 'sarahedo',
     name: 'Sarah Edo',
-    avatarURL: ,
+    avatarURL: 'sarah.png',
     answers: {
       "8xf0y6ziyjabvozdd253nd": 'optionOne',
-      "6ni6ok3ym7mf1p33lnez": 'optionTwo',
+      "6ni6ok3ym7mf1p33lnez": 'optionOne',
       "am8ehyc8byjqgar0jgpub9": 'optionTwo',
       "loxhs1bqm25b708cmbf3g": 'optionTwo'
     },
@@ -14,7 +14,7 @@ let users = {
   tylermcginnis: {
     id: 'tylermcginnis',
     name: 'Tyler McGinnis',
-    avatarURL: ,
+    avatarURL: 'tyler.png',
     answers: {
       "vthrdm985a262al8qx3do": 'optionOne',
       "xj352vofupe1dqz9emx13r": 'optionTwo',
@@ -24,7 +24,7 @@ let users = {
   johndoe: {
     id: 'johndoe',
     name: 'John Doe',
-    avatarURL: ,
+    avatarURL: 'john.png',
     answers: {
       "xj352vofupe1dqz9emx13r": 'optionOne',
       "vthrdm985a262al8qx3do": 'optionTwo',
@@ -58,7 +58,7 @@ let questions = {
     },
     optionTwo: {
       votes: ['johndoe', 'sarahedo'],
-      text: 'become a supervillain'
+      text: 'become a supervillian'
     }
   },
   "am8ehyc8byjqgar0jgpub9": {
@@ -126,12 +126,13 @@ export function _getUsers () {
 }
 
 export function _getQuestions () {
+  //console.log('questions...', questions)
   return new Promise((res, rej) => {
     setTimeout(() => res({...questions}), 1000)
   })
 }
 
-function formatQuestion ({ optionOneText, optionTwoText, author }) {
+export function formatQuestion ({ optionOneText, optionTwoText, author }) {
   return {
     id: generateUID(),
     timestamp: Date.now(),
@@ -172,6 +173,8 @@ export function _saveQuestion (question) {
 }
 
 export function _saveQuestionAnswer ({ authedUser, qid, answer }) {
+  //console.log("CRAPPPPP", authedUser, qid, answer)
+  //console.log('QUESTION', questions[qid],  questions[qid][answer])
   return new Promise((res, rej) => {
     setTimeout(() => {
       users = {
