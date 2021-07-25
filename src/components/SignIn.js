@@ -4,19 +4,20 @@ import Form from "react-bootstrap/Form";
 import { clearAuthedUser, setAuthedUser } from "../actions/authedUser";
 import { Redirect, useLocation } from "react-router-dom";
 
-export function SignIn(props) {
+function SignIn(props) {
   const [userID, setUserID] = useState(null);
   const [directHome, setDirectHome] = useState(false);
   const dispatch = useDispatch();
   const { state } = useLocation();
   useEffect(() => {
     dispatch(clearAuthedUser);
-  }, [dispatch]);
+  });
   const handleSignIn = () => {
     dispatch(setAuthedUser(userID));
     setDirectHome(true);
   };
   const handleChange = (e) => {
+    console.log(e.target.value);
     setUserID(e.target.value);
   };
   const { from } = state || { from: { pathname: "/dashboard" } };
@@ -33,7 +34,7 @@ export function SignIn(props) {
         value={selected}
         OnChange={(Event) => handleChange(Event)}
       >
-        <option value="" disabled>
+        <option value="-1" disabled>
           Select User
         </option>
         {Object.keys(props.users).map((key) => (
@@ -59,4 +60,4 @@ function mapStateToProps({ users }) {
     users,
   };
 }
-connect(mapStateToProps)(SignIn);
+export default connect(mapStateToProps)(SignIn);
