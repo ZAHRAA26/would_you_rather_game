@@ -8,25 +8,27 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      key: "home",
-      answeredQuestions: [],
-      unansweredQuestions: [],
+      key: "Unanswered Questions",
     };
   }
 
   showQuestions = () => {
-    const { questions, authedUser } = this.props;
-    let answered = [];
-    questions.filter((q) => {
-      answered =
+    const { listQuestions, authedUser } = this.props;
+    console.log(listQuestions);
+    const answered = listQuestions.filter(
+      (q) =>
         q.optionOne.votes.indexOf(authedUser) > -1 ||
-        q.optionTwo.votes.indexOf(authedUser) > -1;
-    });
-    return this.state.key === "Unanswered Questions" ? !answered : answered;
+        q.optionTwo.votes.indexOf(authedUser) > -1
+    );
+    const sortedAnswered = answered.sort((a, b) => b.timestamp - a.timestamp);
+    const sortedUnanswered = !answered.sort(
+      (a, b) => b.timestamp - a.timestamp
+    );
+    return this.state.key === "Unanswered Questions"
+      ? sortedUnanswered
+      : sortedAnswered;
   };
-  // showUnanswered = () => {
-  //   return this.state.unansweredQuestions;
-  // };
+
   render() {
     return (
       <Tabs
@@ -35,19 +37,11 @@ class Dashboard extends Component {
         onSelect={(k) => this.setState({ key: k })}
         className="mb-3"
       >
-        <Tab
-          eventKey="Unanswered Questions"
-          title="Unanswered Questions"
-          onClick={this.showAnswered()}
-        >
-          <QuestionDetails questionList={this.state.showQuestions} />
+        <Tab eventKey="Unanswered Questions" title="Unanswered Questions">
+          <QuestionDetails questionList={this.showQuestions()} />
         </Tab>
-        <Tab
-          eventKey="Answered Questions"
-          title="Answered Questions"
-          onClick={this.showUnanswered()}
-        >
-          <QuestionDetails questionList={this.state.showQuestions} />
+        <Tab eventKey="Answered Questions" title="Answered Questions">
+          <QuestionDetails questionList={this.showQuestions()} />
         </Tab>
       </Tabs>
     );
@@ -55,6 +49,7 @@ class Dashboard extends Component {
 }
 
 function mapStateToProps({ questions, authedUser }) {
+  const listQuestions = Object.values(questions);
   return {
     authedUser,
     questions,

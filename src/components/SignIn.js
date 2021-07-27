@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import Form from "react-bootstrap/Form";
 import { clearAuthedUser, setAuthedUser } from "../actions/authedUser";
 import { Redirect, useLocation } from "react-router-dom";
 
@@ -12,6 +11,14 @@ function SignIn(props) {
   useEffect(() => {
     dispatch(clearAuthedUser);
   });
+
+  const { from } = state || { from: { pathname: "/dashboard" } };
+  const selected = userID ? userID : -1;
+
+  //if authenticated
+  if (directHome) {
+    return <Redirect to={from} />;
+  }
   const handleSignIn = () => {
     dispatch(setAuthedUser(userID));
     setDirectHome(true);
@@ -20,33 +27,27 @@ function SignIn(props) {
     console.log(e.target.value);
     setUserID(e.target.value);
   };
-  const { from } = state || { from: { pathname: "/dashboard" } };
-  const selected = userID ? userID : -1;
-
-  //if authenticated
-  if (directHome) {
-    return <Redirect to={from} />;
-  }
   return (
-    <div mb-3 className="centered">
-      <Form.Select
-        // aria-label="Default select example"
+    <div className="container">
+      <h3>Welcome To Would You Rather Game</h3>
+      <select
+        id="login-select"
         value={selected}
-        OnChange={(Event) => handleChange(Event)}
+        onChange={(event) => handleChange(event)}
       >
         <option value="-1" disabled>
-          Select User
+          Select user...
         </option>
         {Object.keys(props.users).map((key) => (
           <option value={props.users[key].id} key={key}>
             {props.users[key].name}
           </option>
         ))}
-      </Form.Select>
+      </select>
       <button
         type="button"
         disabled={userID === null}
-        class="btn btn-primary btn-lg"
+        className="btn btn-primary btn-lg"
         onClick={handleSignIn}
       >
         Sign In
