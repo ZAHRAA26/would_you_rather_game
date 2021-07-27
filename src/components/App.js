@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import Nav from "./Nav";
-import { SignIn } from "./SignIn";
+import SignIn from "./SignIn";
 import { handleInitialData } from "../actions/share";
 import ProtectedRoute from "./ProtectedRoute";
 import Dashboard from "./Dashboard";

@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
+import { clearAuthedUser } from "../actions/authedUser";
+
 function Nav(props) {
+  const dispatch = useDispatch();
+
   const { user } = props;
+  useEffect(() => {
+    dispatch(clearAuthedUser);
+  }, [dispatch, user]);
   const avatar = user ? user.avatarURL : "placeholder.png";
   const name = user ? user.name : "";
   return (
     <nav className="nav">
       <ul>
         <li>
-          <NavLink to="/" exact activeClassName="active">
+          <NavLink to="/dashboard" exact activeClassName="active">
             Dashboard
           </NavLink>
         </li>
@@ -19,9 +26,16 @@ function Nav(props) {
           </NavLink>
         </li>
         <li>
-          <img src={avatar} alt={`Avatar of ${name}`} className="avatar" />
-          {name}
+          <NavLink to="/leaderboard" activeClassName="active">
+            Leader Board
+          </NavLink>
         </li>
+        {props.authedUser && (
+          <li>
+            <img src={avatar} alt={`Avatar of ${name}`} className="avatar" />
+            {name}
+          </li>
+        )}
       </ul>
     </nav>
   );
