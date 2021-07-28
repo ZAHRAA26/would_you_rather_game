@@ -34,7 +34,6 @@ class UnansweredQuestion extends Component {
                     label={question.optionOne.text}
                     name="radioGroup"
                     value={question.optionOne.text}
-                    onChange={this.handleChange}
                   />
                 </Form.Field>
                 <Form.Field>
@@ -42,7 +41,6 @@ class UnansweredQuestion extends Component {
                     label={question.optionTwo.text}
                     name="radioGroup"
                     value={question.optionTwo.text}
-                    onChange={this.handleChange}
                   />
                 </Form.Field>
               </Form>
