@@ -1,5 +1,83 @@
-const AnsweredQuestionDetails = () => {
-  return <p>AnsweredQuestionDetails</p>;
-};
+import React, { Component } from "react";
+import { Header, Progress } from "semantic-ui-react";
+import Badge from "react-bootstrap/Badge";
+import { connect } from "react-redux";
+import { Row } from "react-bootstrap";
+import UnansweredQuestion from "./UnansweredQuestion";
+class AnsweredQuestionDetails extends Component {
+  render() {
+    const {
+      question,
+      authedUser,
+      auther,
+      firstPercentage,
+      secondPercentage,
+      firstNumber,
+      secondNumber,
+    } = this.props;
 
-export default AnsweredQuestionDetails;
+    return question &&
+      (question.optionOne.votes.indexOf(authedUser) > -1 ||
+        question.optionTwo.votes.indexOf(authedUser) > -1) ? (
+      <div className="container">
+        <Header as="h2">{auther.name}</Header>
+        <Header as="h3">Would You Rather</Header>
+        <Row>
+          {question.optionOne.text}
+          <Progress
+            percent={firstPercentage}
+            progress="percent"
+          >{`${firstNumber} out of 3`}</Progress>
+          question&&
+          {question.optionOne.votes.indexOf(authedUser) > -1 ? (
+            <Badge bg="Voted">Voted</Badge>
+          ) : (
+            " "
+          )}
+        </Row>
+        <Row>
+          {question.optionOne.text}
+          <Progress
+            percent={secondPercentage}
+            progress="percent"
+          >{`${secondNumber} out of 3`}</Progress>
+          question&&
+          {question.optionTwo.votes.indexOf(authedUser) > -1 ? (
+            <Badge bg="Voted">Voted</Badge>
+          ) : (
+            " "
+          )}
+        </Row>
+      </div>
+    ) : (
+      <UnansweredQuestion id={question.id} />
+    );
+  }
+}
+function mapStateToProps({ authedUser, users, questions }, { match }) {
+  const { id } = match.params;
+  const question = questions[id];
+  const author = question ? users[question.author] : null;
+  const authed = users[authedUser];
+  const firstNumber = question && question.optionOne.votes.length;
+  const secondNumber = question && question.optionTwo.votes.length;
+  const firstPercentage = (
+    (firstNumber / (firstNumber + secondNumber)) *
+    100
+  ).toFixed(1);
+  const secondPercentage = (
+    (secondNumber / (firstNumber + secondNumber)) *
+    100
+  ).toFixed(1);
+  return {
+    question,
+    author,
+    authed,
+    firstNumber,
+    secondNumber,
+    firstPercentage,
+    secondPercentage,
+  };
+}
+
+export default connect(mapStateToProps)(AnsweredQuestionDetails);

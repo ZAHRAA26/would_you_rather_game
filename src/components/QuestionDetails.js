@@ -1,57 +1,35 @@
 import React, { Component } from "react";
-import { Item } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { Form, Radio } from "semantic-ui-react";
-import { Button } from "semantic-ui-react";
-import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Item } from "semantic-ui-react";
+import AnsweredQuestionDetails from "./AnsweredQuestionDetails";
+
 class QuestionDetails extends Component {
-  state = {};
-  handleChange = (e, { value }) => this.setState({ value });
-  viewQuestion = (q) => {
-    return <Redirect to={`question/${q["id"]}`} />;
-  };
   render() {
-    const { newListQuestions, users } = this.props;
-    console.log(newListQuestions);
+    const { questionList, users } = this.props;
+    console.log(questionList);
     return (
       <Item.Group>
-        {newListQuestions.map((q) => (
-          <Item>
+        {questionList.map((q) => (
+          <Item key={q.id}>
             <Item.Image size="small" src={`${users[q.auther].avatarURL}`} />
             <Item.Content>
               <Item.Header as="a">users[q.author].name</Item.Header>
               <Item.Description>
                 <p>asks : would you rather</p>
-                <Form>
-                  <Form.Field>
-                    Selected value: <b>{this.state.value}</b>
-                  </Form.Field>
-                  <Form.Field>
-                    <Radio
-                      label={q.optionOne.text}
-                      name="radioGroup"
-                      value={q.optionOne.text}
-                      checked={this.state.value === `${q.optionOne.text}`}
-                      onChange={this.handleChange}
-                    />
-                  </Form.Field>
-                  <Form.Field>
-                    <Radio
-                      label={q.optionTwo.text}
-                      name="radioGroup"
-                      value={q.optionTwo.text}
-                      checked={this.state.value === `${q.optionTwo.text}`}
-                      onChange={this.handleChange}
-                    />
-                  </Form.Field>
-                </Form>
+                <p>{q.optionOne.text}</p>
+                or
+                <p>{q.optionTwo.text}</p>
               </Item.Description>
             </Item.Content>
-            <Button
+            {/* <Button
               content="View Question"
               primary
-              onClick={this.viewQuestion(q)}
-            />
+              onClick={this.viewQuestion(q.id)}
+            /> */}
+            <Link to={`question/${q["id"]}`}>
+              <AnsweredQuestionDetails id={q.id} />
+            </Link>
           </Item>
         ))}
       </Item.Group>
@@ -59,16 +37,10 @@ class QuestionDetails extends Component {
   }
 }
 
-function mapStateToProps({ authedUser, users, questions }, { questionList }) {
-  console.log(questionList);
-  // const qIDS = Object.keys(questionList);
-  const newListQuestions = questionList;
-  // qIDS.forEach((qID) => {
-  // newListQuestions.push(questions.filter((q) => q.id === qID));
-
+function mapStateToProps({ authedUser, users }, { questionList }) {
   return {
+    questionList,
     authedUser,
-    newListQuestions,
     users,
   };
 }
