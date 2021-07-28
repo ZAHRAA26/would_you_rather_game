@@ -51,7 +51,6 @@ class NewQuestion extends Component {
         </Form.Field>
 
         <Button type="submit" onClick={this.handleSubmit}>
-          {" "}
           Add Question
         </Button>
       </Form>

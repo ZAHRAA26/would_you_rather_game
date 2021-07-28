@@ -38,7 +38,7 @@ function answerQuestion({ authedUser, qid, answer }) {
     answer,
   };
 }
-export function handleAnswerQuestion({ authedUser, qid, answer }) {
+export function handleAnswerQuestion({ qid, answer }) {
   return (dispatch, getState) => {
     const { authedUser } = getState();
     dispatch(answerQuestion({ authedUser, qid, answer }));
