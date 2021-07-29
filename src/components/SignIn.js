@@ -8,16 +8,16 @@ function SignIn(props) {
   const [directHome, setDirectHome] = useState(false);
   const dispatch = useDispatch();
   const { state } = useLocation();
-  useEffect(() => {
-    dispatch(clearAuthedUser);
-  });
+  // useEffect(() => {
+  //   dispatch(clearAuthedUser());
+  // }, []);
 
   const { from } = state || { from: { pathname: "/dashboard" } };
   const selected = userID ? userID : -1;
-
+  console.log(from);
   //if authenticated
   if (directHome) {
-    return <Redirect to={from} />;
+    return <Redirect push to={from} />;
   }
   const handleSignIn = () => {
     dispatch(setAuthedUser(userID));
@@ -44,6 +44,7 @@ function SignIn(props) {
           </option>
         ))}
       </select>
+      <br />
       <button
         type="button"
         disabled={userID === null}

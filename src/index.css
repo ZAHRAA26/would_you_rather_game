@@ -46,7 +46,12 @@ a {
   font-weight: 700;
   border-width: 2px;
 }
-
+.liImage{
+  margin-bottom: 81px;
+}
+.nav li:first-child {
+  padding-left: 59px;
+}
 .center {
   text-align: center;
 }

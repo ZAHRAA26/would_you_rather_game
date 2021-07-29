@@ -5,9 +5,12 @@ import Tab from "react-bootstrap/Tab";
 import React, { Component } from "react";
 
 class Dashboard extends Component {
-  state = {
-    key: "Unanswered Questions",
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      key: "Unanswered Questions",
+    };
+  }
 
   showQuestions = () => {
     const { listQuestions, authedUser } = this.props;
