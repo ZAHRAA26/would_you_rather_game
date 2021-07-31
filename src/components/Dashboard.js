@@ -4,77 +4,92 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import questions from "./../reducers/questions";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       key: "Unanswered Questions",
+      answered: [],
+      unanswered: [],
     };
   }
 
   showQuestions = () => {
-    const { authedUser, questions } = this.props;
-    const listQuestions = Object.values(questions);
-    console.log(listQuestions);
-    const answered = listQuestions.filter(
-      (q) =>
-        q.optionOne.votes.indexOf(authedUser) > -1 ||
-        q.optionTwo.votes.indexOf(authedUser) > -1
-    );
-    const sortedAnswered = answered.sort((a, b) => b.timestamp - a.timestamp);
-    const sortedUnanswered = !answered.sort(
-      (a, b) => b.timestamp - a.timestamp
-    );
-    return this.state.key === "Unanswered Questions"
-      ? `<p>${sortedUnanswered}</p>`
-      : `<p>${sortedAnswered}</p>`;
+    const { authedUser, questionIds, questions } = this.props;
+    console.log(`123${questionIds}`);
+
+    const answered = [];
+    const unanswered = [];
+    questionIds.forEach((qId) => {
+      const question = questions[qId];
+      if (
+        question.optionOne.votes.indexOf(authedUser) > -1 ||
+        question.optionTwo.votes.indexOf(authedUser) > -1
+      )
+        answered.push(questions[qId]);
+      else unanswered.push(questions[qId]);
+    });
+    this.setState({ answered, unanswered });
+    console.log(`123${this.state.answered ? this.state.answered : null}`);
+    console.log(`123${this.state.unanswered ? this.state.unanswered : null}`);
   };
 
   render() {
-    const result = this.showQuestions();
     return (
-      <Tabs
-        id="controlled-tab-example"
-        activeKey={this.state.key}
-        onSelect={(k) => this.setState({ key: k })}
-        className="mb-3"
-      >
-        <Tab
-          eventKey="Unanswered Questions"
-          title="Unanswered Questions"
-          onClick={this.showQuestions}
-        >
-          <p>Unanswered Questions</p>
-          {/* {result.map((question) => (
-            <li key={question.id}>
-              <Link to={`question/${question["id"]}`}>
-                <QuestionDetails id={question.id} />
-              </Link>
-            </li>
-          ))} */}
-        </Tab>
-        <Tab
-          eventKey="Answered Questions"
-          title="Answered Questions"
-          onClick={this.showQuestions}
-        >
-          <p>Answered Questions</p>
-          {/* {result.map((question) => (
-            <li key={question.id}>
-              <Link to={`question/${question["id"]}`}>
-                <QuestionDetails id={question.id} />
-              </Link>
-            </li>
-          ))} */}
-        </Tab>
-      </Tabs>
+      <div>
+        {this.props.questionIds.map((id) => (
+          <li key={id}>
+            <QuestionDetails id={id} />
+          </li>
+        ))}
+      </div>
+
+      // <Tabs
+      //   id="controlled-tab-example"
+      //   activeKey={this.state.key}
+      //   onSelect={(k) => this.setState({ key: k })}
+      //   className="mb-3"
+      // >
+      //   <Tab
+      //     eventKey="Unanswered Questions"
+      //     title="Unanswered Questions"
+      //     onClick={this.showQuestions()}
+      //   >
+      //     <p>Unanswered Questions</p>
+      //     {this.state.unanswered.map((question) => (
+      //       <li key={question.id}>
+      //         <Link to={`question/${question["id"]}`}>
+      //           <QuestionDetails id={question.id} />
+      //         </Link>
+      //       </li>
+      //     ))}
+      //   </Tab>
+      //   <Tab
+      //     eventKey="Answered Questions"
+      //     title="Answered Questions"
+      //     onClick={this.showQuestions()}
+      //   >
+      //     <p>Answered Questions</p>
+      //     {this.state.answered.map((question) => (
+      //       <li key={question.id}>
+      //         <Link to={`question/${question["id"]}`}>
+      //           <QuestionDetails id={question.id} />
+      //         </Link>
+      //       </li>
+      //     ))}
+      //   </Tab>
+      // </Tabs>
     );
   }
 }
 
 function mapStateToProps({ questions, authedUser }) {
   return {
+    questionIds: Object.keys(questions).sort(
+      (a, b) => questions[b].timestamp - questions[a].timestamp
+    ),
     authedUser,
     questions,
   };
