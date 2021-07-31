@@ -10,14 +10,14 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       key: "Unanswered Questions",
-      answered: [],
-      unanswered: [],
+      // answered: [],
+      // unanswered: [],
     };
   }
 
   showQuestions = () => {
     const { authedUser, questionIds, questions } = this.props;
-    console.log(`123${questionIds}`);
+    // console.log(`123${questionIds}`);
 
     const answered = [];
     const unanswered = [];
@@ -30,12 +30,14 @@ class Dashboard extends Component {
         answered.push(questions[qId]);
       else unanswered.push(questions[qId]);
     });
-    this.setState({ answered, unanswered });
-    console.log(`123${this.state.answered ? this.state.answered : null}`);
-    console.log(`123${this.state.unanswered ? this.state.unanswered : null}`);
+    return this.state.key === "Unanswered Questions" ? unanswered : answered;
+    // this.setState({ answered, unanswered });
+    // console.log(`123${this.state.answered ? this.state.answered : null}`);
+    // console.log(`123${this.state.unanswered ? this.state.unanswered : null}`);
   };
 
   render() {
+    const result = this.showQuestions();
     return (
       <Tabs
         id="controlled-tab-example"
@@ -43,33 +45,25 @@ class Dashboard extends Component {
         onSelect={(k) => this.setState({ key: k })}
         className="mb-3"
       >
-        <Tab
-          eventKey="Unanswered Questions"
-          title="Unanswered Questions"
-          onClick={this.showQuestions()}
-        >
+        <Tab eventKey="Unanswered Questions" title="Unanswered Questions">
           <p>Unanswered Questions</p>
-          {/* {this.state.unanswered.map((question) => (
+          {result.map((question) => (
             <li key={question.id}>
               <Link to={`question/${question["id"]}`}>
                 <QuestionDetails id={question.id} />
               </Link>
             </li>
-          ))} */}
+          ))}
         </Tab>
-        <Tab
-          eventKey="Answered Questions"
-          title="Answered Questions"
-          onClick={this.showQuestions()}
-        >
+        <Tab eventKey="Answered Questions" title="Answered Questions">
           <p>Answered Questions</p>
-          {/* {this.state.answered.map((question) => (
+          {result.map((question) => (
             <li key={question.id}>
               <Link to={`question/${question["id"]}`}>
                 <QuestionDetails id={question.id} />
               </Link>
             </li>
-          ))} */}
+          ))}
         </Tab>
       </Tabs>
     );

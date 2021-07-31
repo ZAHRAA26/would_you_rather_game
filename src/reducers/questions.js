@@ -8,7 +8,7 @@ export default function questions(state = {}, action) {
     case RECEIVE_QUESTIONS:
       return {
         ...state,
-        ...action.tweets,
+        ...action.questions,
       };
     case ANSWER_QUESTION:
       return {
