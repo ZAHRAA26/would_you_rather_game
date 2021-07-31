@@ -6,43 +6,34 @@ import AnsweredQuestionDetails from "./AnsweredQuestionDetails";
 
 class QuestionDetails extends Component {
   render() {
-    const { questionList, users } = this.props;
-    console.log(questionList);
+    const { question, author } = this.props;
+    console.log(question);
     return (
       <Item.Group>
-        {questionList &&
-          questionList.map((q) => (
-            <Item key={q.id}>
-              <Item.Image size="small" src={`${users[q.auther].avatarURL}`} />
-              <Item.Content>
-                <Item.Header as="a">users[q.author].name</Item.Header>
-                <Item.Description>
-                  <p>asks : would you rather</p>
-                  <p>{q.optionOne.text}</p>
-                  or
-                  <p>{q.optionTwo.text}</p>
-                </Item.Description>
-              </Item.Content>
-              {/* <Button
-              content="View Question"
-              primary
-              onClick={this.viewQuestion(q.id)}
-            /> */}
-              <Link to={`question/${q["id"]}`}>
-                <AnsweredQuestionDetails id={q.id} />
-              </Link>
-            </Item>
-          ))}
+        <Item>
+          <Item.Image size="small" src={`/${author.avatarURL}`} />
+          <Item.Content>
+            <Item.Header as="a">users[question.author].name</Item.Header>
+            <Item.Description>
+              <p>asks : would you rather</p>
+              <p>{question.optionOne.text}</p>
+              or
+              <p>{question.optionTwo.text}</p>
+            </Item.Description>
+          </Item.Content>
+        </Item>
       </Item.Group>
     );
   }
 }
+function mapStateToProps({ authedUser, users, questions }, { id }) {
+  const question = questions[id];
+  const author = question ? users[question.author] : null;
 
-function mapStateToProps({ authedUser, users, questionList }) {
   return {
-    questionList,
     authedUser,
-    users,
+    question,
+    author,
   };
 }
 

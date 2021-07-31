@@ -3,6 +3,7 @@ import QuestionDetails from "./QuestionDetails";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class Dashboard extends Component {
   }
 
   showQuestions = () => {
-    const { listQuestions, authedUser } = this.props;
+    const { authedUser, questions } = this.props;
+    const listQuestions = Object.values(questions);
     console.log(listQuestions);
     const answered = listQuestions.filter(
       (q) =>
@@ -25,11 +27,12 @@ class Dashboard extends Component {
       (a, b) => b.timestamp - a.timestamp
     );
     return this.state.key === "Unanswered Questions"
-      ? sortedUnanswered
-      : sortedAnswered;
+      ? `<p>${sortedUnanswered}</p>`
+      : `<p>${sortedAnswered}</p>`;
   };
 
   render() {
+    const result = this.showQuestions();
     return (
       <Tabs
         id="controlled-tab-example"
@@ -37,11 +40,33 @@ class Dashboard extends Component {
         onSelect={(k) => this.setState({ key: k })}
         className="mb-3"
       >
-        <Tab eventKey="Unanswered Questions" title="Unanswered Questions">
-          <QuestionDetails questionList={this.showQuestions()} />
+        <Tab
+          eventKey="Unanswered Questions"
+          title="Unanswered Questions"
+          onClick={this.showQuestions}
+        >
+          <p>Unanswered Questions</p>
+          {/* {result.map((question) => (
+            <li key={question.id}>
+              <Link to={`question/${question["id"]}`}>
+                <QuestionDetails id={question.id} />
+              </Link>
+            </li>
+          ))} */}
         </Tab>
-        <Tab eventKey="Answered Questions" title="Answered Questions">
-          <QuestionDetails questionList={this.showQuestions()} />
+        <Tab
+          eventKey="Answered Questions"
+          title="Answered Questions"
+          onClick={this.showQuestions}
+        >
+          <p>Answered Questions</p>
+          {/* {result.map((question) => (
+            <li key={question.id}>
+              <Link to={`question/${question["id"]}`}>
+                <QuestionDetails id={question.id} />
+              </Link>
+            </li>
+          ))} */}
         </Tab>
       </Tabs>
     );
@@ -49,10 +74,9 @@ class Dashboard extends Component {
 }
 
 function mapStateToProps({ questions, authedUser }) {
-  const listQuestions = Object.values(questions);
   return {
     authedUser,
-    listQuestions,
+    questions,
   };
 }
 
