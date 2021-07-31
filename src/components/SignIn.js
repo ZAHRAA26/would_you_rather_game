@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { connect, useDispatch } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { clearAuthedUser, setAuthedUser } from "../actions/authedUser";
 import { Redirect, useLocation } from "react-router-dom";
 
@@ -11,7 +11,7 @@ function SignIn(props) {
   // useEffect(() => {
   //   dispatch(clearAuthedUser());
   // }, []);
-
+  const users = useSelector((state) => state.users);
   const { from } = state || { from: { pathname: "/dashboard" } };
   const selected = userID ? userID : -1;
   console.log(from);
@@ -38,9 +38,9 @@ function SignIn(props) {
         <option value="-1" disabled>
           Select user...
         </option>
-        {Object.keys(props.users).map((key) => (
-          <option value={props.users[key].id} key={key}>
-            {props.users[key].name}
+        {Object.keys(users).map((key) => (
+          <option value={users[key].id} key={key}>
+            {users[key].name}
           </option>
         ))}
       </select>
@@ -57,9 +57,9 @@ function SignIn(props) {
   );
 }
 
-function mapStateToProps({ users }) {
-  return {
-    users,
-  };
-}
-export default connect(mapStateToProps)(SignIn);
+// function mapStateToProps({ users }) {
+//   return {
+//     users,
+//   };
+// }
+export default SignIn;
