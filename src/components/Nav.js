@@ -1,15 +1,10 @@
 import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { connect, useDispatch } from "react-redux";
-import { clearAuthedUser } from "../actions/authedUser";
 
 function Nav(props) {
-  const dispatch = useDispatch();
-
   const { user } = props;
-  useEffect(() => {
-    dispatch(clearAuthedUser);
-  }, [dispatch, user]);
+
   const avatar = user ? user.avatarURL : "placeholder.png";
   const name = user ? user.name : "";
   return (
@@ -21,7 +16,7 @@ function Nav(props) {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/new" activeClassName="active">
+          <NavLink to="/add" activeClassName="active">
             New Question
           </NavLink>
         </li>
@@ -31,10 +26,12 @@ function Nav(props) {
           </NavLink>
         </li>
         {props.authedUser && (
-          <li>
-            <img src={avatar} alt={`Avatar of ${name}`} className="avatar" />
-            {name}
-          </li>
+          <div className="container">
+            <li className="liImage">
+              <img src={avatar} alt={`Avatar of ${name}`} className="avatar" />
+              {name}
+            </li>
+          </div>
         )}
       </ul>
     </nav>

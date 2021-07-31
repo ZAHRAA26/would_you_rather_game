@@ -11,8 +11,9 @@ class UnansweredQuestion extends Component {
     e.preventDefault();
     this.setState({ answer: e.target.value });
     const { answer } = this.state;
+    const { authedUser } = this.props;
     this.props.dispatch(
-      handleAnswerQuestion({ qid: this.props.id, answer: answer })
+      handleAnswerQuestion({ qid: this.props.id, answer: answer, authedUser })
     );
   };
   render() {
