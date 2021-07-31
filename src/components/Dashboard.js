@@ -4,7 +4,6 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import questions from "./../reducers/questions";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -38,49 +37,41 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div>
-        {this.props.questionIds.map((id) => (
-          <li key={id}>
-            <QuestionDetails id={id} />
-          </li>
-        ))}
-      </div>
-
-      // <Tabs
-      //   id="controlled-tab-example"
-      //   activeKey={this.state.key}
-      //   onSelect={(k) => this.setState({ key: k })}
-      //   className="mb-3"
-      // >
-      //   <Tab
-      //     eventKey="Unanswered Questions"
-      //     title="Unanswered Questions"
-      //     onClick={this.showQuestions()}
-      //   >
-      //     <p>Unanswered Questions</p>
-      //     {this.state.unanswered.map((question) => (
-      //       <li key={question.id}>
-      //         <Link to={`question/${question["id"]}`}>
-      //           <QuestionDetails id={question.id} />
-      //         </Link>
-      //       </li>
-      //     ))}
-      //   </Tab>
-      //   <Tab
-      //     eventKey="Answered Questions"
-      //     title="Answered Questions"
-      //     onClick={this.showQuestions()}
-      //   >
-      //     <p>Answered Questions</p>
-      //     {this.state.answered.map((question) => (
-      //       <li key={question.id}>
-      //         <Link to={`question/${question["id"]}`}>
-      //           <QuestionDetails id={question.id} />
-      //         </Link>
-      //       </li>
-      //     ))}
-      //   </Tab>
-      // </Tabs>
+      <Tabs
+        id="controlled-tab-example"
+        activeKey={this.state.key}
+        onSelect={(k) => this.setState({ key: k })}
+        className="mb-3"
+      >
+        <Tab
+          eventKey="Unanswered Questions"
+          title="Unanswered Questions"
+          onClick={this.showQuestions()}
+        >
+          <p>Unanswered Questions</p>
+          {/* {this.state.unanswered.map((question) => (
+            <li key={question.id}>
+              <Link to={`question/${question["id"]}`}>
+                <QuestionDetails id={question.id} />
+              </Link>
+            </li>
+          ))} */}
+        </Tab>
+        <Tab
+          eventKey="Answered Questions"
+          title="Answered Questions"
+          onClick={this.showQuestions()}
+        >
+          <p>Answered Questions</p>
+          {/* {this.state.answered.map((question) => (
+            <li key={question.id}>
+              <Link to={`question/${question["id"]}`}>
+                <QuestionDetails id={question.id} />
+              </Link>
+            </li>
+          ))} */}
+        </Tab>
+      </Tabs>
     );
   }
 }
