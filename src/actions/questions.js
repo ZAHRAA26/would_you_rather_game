@@ -11,9 +11,9 @@ function addQuestion(question) {
   };
 }
 
-export function handleAddQuestion(optionOneText, optionTwoText, authedUser) {
+export function handleAddQuestion(optionOneText, optionTwoText) {
   return (dispatch, getState) => {
-    // const { authedUser } = getState();
+    const { authedUser } = getState();
 
     return saveQuestion({
       optionOneText,

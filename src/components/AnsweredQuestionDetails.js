@@ -1,26 +1,32 @@
 import React, { Component } from "react";
-import { Header, Progress } from "semantic-ui-react";
+import { Header, Image, Progress } from "semantic-ui-react";
 import Badge from "react-bootstrap/Badge";
 import { connect } from "react-redux";
 import { Row } from "react-bootstrap";
 import UnansweredQuestion from "./UnansweredQuestion";
+import { Redirect } from "react-router-dom";
 class AnsweredQuestionDetails extends Component {
   render() {
     const {
       question,
       authedUser,
-      auther,
+      author,
       firstPercentage,
       secondPercentage,
       firstNumber,
       secondNumber,
     } = this.props;
+    const avatar = author.avatarURL ? author.avatarURL : "placeholder.png";
 
+    if (!question) {
+      return <Redirect to="/not-found" />;
+    }
     return question &&
       (question.optionOne.votes.indexOf(authedUser) > -1 ||
         question.optionTwo.votes.indexOf(authedUser) > -1) ? (
       <div className="container">
-        <Header as="h2">{auther.name}</Header>
+        <Image src={`/${avatar}`} size="small" />)
+        <Header as="h2">{author.name} asks</Header>
         <Header as="h3">Would You Rather</Header>
         <Row>
           {question.optionOne.text}
@@ -54,8 +60,8 @@ class AnsweredQuestionDetails extends Component {
     );
   }
 }
-function mapStateToProps({ authedUser, users, questions }, { match }) {
-  const { id } = match.params;
+function mapStateToProps({ authedUser, users, questions }, props) {
+  const { id } = props.match.params;
   const question = questions[id];
   const author = question ? users[question.author] : null;
   const authed = users[authedUser];
