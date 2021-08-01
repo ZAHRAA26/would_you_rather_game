@@ -1,29 +1,40 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Item, Form, Radio, Button } from "semantic-ui-react";
+import { Redirect } from "react-router-dom";
+import { Item, Form, Radio, Button, Image } from "semantic-ui-react";
 import { handleAnswerQuestion } from "../actions/questions";
 class UnansweredQuestion extends Component {
-  state = {
-    answer: "",
+  constructor(props) {
+    super(props);
+    this.state = {
+      answer: "",
+    };
+  }
+
+  onValueChange = (event) => {
+    this.setState({
+      answer: event.target.value,
+    });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.setState({ answer: e.target.value });
+    console.log(this.state.answer);
     const { answer } = this.state;
-    const { authedUser } = this.props;
-    this.props.dispatch(
-      handleAnswerQuestion({ qid: this.props.id, answer: answer, authedUser })
-    );
+    const { authedUser, id, dispatch } = this.props;
+    dispatch(handleAnswerQuestion({ id, answer, authedUser }));
+    return <Redirect to="/dashboard" />;
   };
   render() {
-    const { question, auther } = this.props;
+    const { question, author, users } = this.props;
+    const avatar = author.avatarURL ? author.avatarURL : "placeholder.png";
     return (
       <Item.Group>
         <Item>
-          <Item.Image size="small" src={`${auther.avatarURL}`} />
+          {console.log(question)}
+          <Image src={`/${avatar}`} size="small" />
           <Item.Content>
-            <Item.Header as="a">users[question.author].name</Item.Header>
+            <Item.Header as="a">{users[question.author].name}</Item.Header>
             <Item.Description>
               <p>asks : would you rather</p>
               <Form>
@@ -35,6 +46,8 @@ class UnansweredQuestion extends Component {
                     label={question.optionOne.text}
                     name="radioGroup"
                     value={question.optionOne.text}
+                    checked={this.state.answer === question.optionOne.text}
+                    onChange={this.onValueChange}
                   />
                 </Form.Field>
                 <Form.Field>
@@ -42,6 +55,8 @@ class UnansweredQuestion extends Component {
                     label={question.optionTwo.text}
                     name="radioGroup"
                     value={question.optionTwo.text}
+                    checked={this.state.answer === question.optionTwo.text}
+                    onChange={this.onValueChange}
                   />
                 </Form.Field>
               </Form>
@@ -50,24 +65,25 @@ class UnansweredQuestion extends Component {
           <Button
             content="Submit Question Answer"
             primary
-            onClick={(e) => this.handleSubmit(e)}
+            onClick={this.handleSubmit}
           />
         </Item>
       </Item.Group>
     );
   }
 }
-function mapStateToProps({ users, questions }, { match }) {
-  const { id } = match.params;
+function mapStateToProps({ users, questions, authedUser }, { id }) {
   const question = questions[id];
   const author = question ? users[question.author] : null;
+  const authed = users[authedUser];
 
   return {
+    authed,
     question,
     author,
     users,
     id,
+    authedUser,
   };
 }
-
 export default connect(mapStateToProps)(UnansweredQuestion);

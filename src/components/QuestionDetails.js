@@ -7,23 +7,26 @@ import AnsweredQuestionDetails from "./AnsweredQuestionDetails";
 class QuestionDetails extends Component {
   render() {
     const { question, author } = this.props;
+    const { id } = question;
     const avatar = author.avatarURL ? author.avatarURL : "placeholder.png";
-    // console.log(question);
+    console.log(`123${question}`);
     return (
-      <Item.Group>
-        <Item>
-          <Item.Image size="small" src={`/${avatar}`} />
-          <Item.Content className="floatRight">
-            <Item.Header as="a">{author.name}</Item.Header>
-            <Item.Description>
-              <p>asks : would you rather</p>
-              <p>{question.optionOne.text}</p>
-              or
-              <p>{question.optionTwo.text}</p>
-            </Item.Description>
-          </Item.Content>
-        </Item>
-      </Item.Group>
+      <Link to={`question/${question.id}`}>
+        <Item.Group>
+          <Item>
+            <Item.Image size="small" src={`/${avatar}`} />
+            <Item.Content className="floatRight">
+              <Item.Header as="a">{author.name}</Item.Header>
+              <Item.Description>
+                <p>asks : would you rather</p>
+                <p>{question.optionOne.text}</p>
+                or
+                <p>{question.optionTwo.text}</p>
+              </Item.Description>
+            </Item.Content>
+          </Item>
+        </Item.Group>
+      </Link>
     );
   }
 }

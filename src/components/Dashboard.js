@@ -31,9 +31,6 @@ class Dashboard extends Component {
       else unanswered.push(questions[qId]);
     });
     return this.state.key === "Unanswered Questions" ? unanswered : answered;
-    // this.setState({ answered, unanswered });
-    // console.log(`123${this.state.answered ? this.state.answered : null}`);
-    // console.log(`123${this.state.unanswered ? this.state.unanswered : null}`);
   };
 
   render() {
@@ -46,22 +43,16 @@ class Dashboard extends Component {
         className="mb-3"
       >
         <Tab eventKey="Unanswered Questions" title="Unanswered Questions">
-          <p>Unanswered Questions</p>
           {result.map((question) => (
             <li key={question.id}>
-              <Link to={`question/${question["id"]}`}>
-                <QuestionDetails id={question.id} />
-              </Link>
+              <QuestionDetails id={question.id} />
             </li>
           ))}
         </Tab>
         <Tab eventKey="Answered Questions" title="Answered Questions">
-          <p>Answered Questions</p>
           {result.map((question) => (
             <li key={question.id}>
-              <Link to={`question/${question["id"]}`}>
-                <QuestionDetails id={question.id} />
-              </Link>
+              <QuestionDetails id={question.id} />
             </li>
           ))}
         </Tab>

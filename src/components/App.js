@@ -11,8 +11,9 @@ import Dashboard from "./Dashboard";
 import LeaderBoard from "./LeaderBoard";
 import NewQuestion from "./NewQuestion";
 import NotFoundPage from "./NotFoundPage";
-import QuestionDetails from "./QuestionDetails";
+import AnsweredQuestionDetails from "./AnsweredQuestionDetails";
 import "../App.css";
+
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(handleInitialData());
@@ -30,7 +31,7 @@ class App extends Component {
                 <ProtectedRoute path="/add" exact component={NewQuestion} />
                 <ProtectedRoute
                   path="/question/:id"
-                  component={QuestionDetails}
+                  component={AnsweredQuestionDetails}
                 />
                 <ProtectedRoute path="/leaderboard" component={LeaderBoard} />
                 <Route path="/not-found" component={NotFoundPage} />

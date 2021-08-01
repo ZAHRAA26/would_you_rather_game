@@ -11,7 +11,7 @@ class NewQuestion extends Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    const authedUser = this.props.authedUser;
+    const { authedUser } = this.props;
     const { optionOneText, optionTwoText } = this.state;
     this.props.dispatch(
       handleAddQuestion(optionOneText, optionTwoText, authedUser)
