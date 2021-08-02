@@ -4,21 +4,22 @@ import { withRouter, BrowserRouter, Route } from "react-router-dom";
 import { Button, Item } from "semantic-ui-react";
 import AnsweredQuestionDetails from "./AnsweredQuestionDetails";
 import UnansweredQuestion from "./UnansweredQuestion";
+import ProtectedRoute from "./ProtectedRoute";
 
 class QuestionDetails extends Component {
   handleClick = () => {
     const { state, question, id } = this.props;
-    this.props.history.push(`/question/${id}`);
+    // this.props.history.push(`/question/${id}`);
     console.log(state);
     return state === "answered" ? (
-      <Route
-        path={`/question/${question[id]}`}
-        render={() => <AnsweredQuestionDetails id={question.id} />}
+      <ProtectedRoute
+        path={`/question/${id}`}
+        render={() => <AnsweredQuestionDetails id={id} />}
       />
     ) : state === "unanswered" ? (
-      <Route
-        path={`/question/${question[id]}`}
-        render={() => <UnansweredQuestion id={question.id} />}
+      <ProtectedRoute
+        path={`/question/${id}`}
+        render={() => <UnansweredQuestion id={id} />}
       />
     ) : null;
   };
@@ -58,6 +59,7 @@ function mapStateToProps({ authedUser, users, questions }, { id, state }) {
     question,
     author,
     state,
+    id,
   };
 }
 

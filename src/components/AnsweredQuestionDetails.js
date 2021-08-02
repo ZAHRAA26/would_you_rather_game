@@ -59,7 +59,7 @@ class AnsweredQuestionDetails extends Component {
     );
   }
 }
-function mapStateToProps({ authedUser, users, questions, id, state }) {
+function mapStateToProps({ authedUser, users, questions }, { id }) {
   const question = questions[id];
   const author = question ? users[question.author] : null;
   const authed = users[authedUser];
@@ -73,8 +73,8 @@ function mapStateToProps({ authedUser, users, questions, id, state }) {
     (secondNumber / (firstNumber + secondNumber)) *
     100
   ).toFixed(1);
+  debugger;
   return {
-    state,
     question,
     author,
     authed,
