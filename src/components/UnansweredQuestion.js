@@ -2,32 +2,40 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Item, Form, Radio, Button, Image } from "semantic-ui-react";
-import { handleAnswerQuestion } from "../actions/questions";
+import { handleSaveQuestionAnswer } from "../actions/users";
 class UnansweredQuestion extends Component {
   constructor(props) {
     super(props);
     this.state = {
       answer: "",
+      toHome: false,
     };
   }
 
-  onValueChange = (event) => {
+  onValueChange = (event, { value }) => {
     this.setState({
-      answer: event.target.value,
+      answer: value,
     });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
     console.log(this.state.answer);
-    const { answer } = this.state;
-    const { authedUser, id, dispatch } = this.props;
-    dispatch(handleAnswerQuestion({ id, answer, authedUser }));
-    return <Redirect to="/dashboard" />;
+    if (this.state.answer !== "") {
+      const { answer } = this.state;
+      const { authedUser, question, dispatch } = this.props;
+      const qid = question.id;
+      dispatch(handleSaveQuestionAnswer(authedUser, qid, answer));
+    }
+    this.setState({ toHome: true });
   };
   render() {
+    if (this.state.toHome) {
+      return <Redirect to="/dashboard" />;
+    }
     const { question, author, users } = this.props;
     const avatar = author.avatarURL ? author.avatarURL : "placeholder.png";
+    const { answer } = this.state;
     return (
       <Item.Group>
         <Item>
@@ -45,8 +53,8 @@ class UnansweredQuestion extends Component {
                   <Radio
                     label={question.optionOne.text}
                     name="radioGroup"
-                    value={question.optionOne.text}
-                    checked={this.state.answer === question.optionOne.text}
+                    value="optionOne"
+                    checked={answer === "optionOne"}
                     onChange={this.onValueChange}
                   />
                 </Form.Field>
@@ -54,8 +62,8 @@ class UnansweredQuestion extends Component {
                   <Radio
                     label={question.optionTwo.text}
                     name="radioGroup"
-                    value={question.optionTwo.text}
-                    checked={this.state.answer === question.optionTwo.text}
+                    value="optionTwo"
+                    checked={answer === "optionTwo"}
                     onChange={this.onValueChange}
                   />
                 </Form.Field>
@@ -66,6 +74,7 @@ class UnansweredQuestion extends Component {
             content="Submit Question Answer"
             primary
             onClick={this.handleSubmit}
+            disabled={this.state.answer === ""}
           />
         </Item>
       </Item.Group>
@@ -75,10 +84,8 @@ class UnansweredQuestion extends Component {
 function mapStateToProps({ users, questions, authedUser }, { id }) {
   const question = questions[id];
   const author = question ? users[question.author] : null;
-  const authed = users[authedUser];
 
   return {
-    authed,
     question,
     author,
     users,

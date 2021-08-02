@@ -176,8 +176,8 @@ export function _saveQuestion(question) {
 }
 
 export function _saveQuestionAnswer({ authedUser, qid, answer }) {
-  //console.log("CRAPPPPP", authedUser, qid, answer)
-  //console.log('QUESTION', questions[qid],  questions[qid][answer])
+  console.log(authedUser, qid, answer);
+  console.log("QUESTION", questions[qid], questions[qid][answer]);
   return new Promise((res, rej) => {
     setTimeout(() => {
       users = {

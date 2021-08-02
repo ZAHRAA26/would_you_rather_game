@@ -1,5 +1,4 @@
-import { saveQuestion, saveQuestionAnswer } from "../utils/api";
-
+import { saveQuestion } from "../utils/api";
 export const RECEIVE_QUESTIONS = "RECEIVE_QUESTIONS";
 export const ANSWER_QUESTION = "ANSWER_QUESTION";
 export const ADD_QUESTION = "ADD_QUESTION";
@@ -30,17 +29,11 @@ export function receiveQuestions(questions) {
   };
 }
 
-function answerQuestion({ authedUser, qid, answer }) {
+export function answerQuestion(authedUser, qid, answer) {
   return {
     type: ANSWER_QUESTION,
     authedUser,
     qid,
     answer,
-  };
-}
-export function handleAnswerQuestion({ qid, answer, authedUser }) {
-  return (dispatch) => {
-    dispatch(answerQuestion({ authedUser, qid, answer }));
-    return saveQuestionAnswer({ authedUser, qid, answer });
   };
 }

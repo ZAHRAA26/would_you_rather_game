@@ -17,9 +17,7 @@ class LeaderBoard extends Component {
                 <p>Answered Question:{Object.keys(user.answers).length}</p>
                 <p>Created Question:{user.questions.length}</p>
               </Item.Content>
-              <Button circular>
-                {Object.keys(user.answers).length + user.questions.length}
-              </Button>
+              <Button circular>{user.totalScore}</Button>
             </Item>
           </Item.Group>
         ))}
@@ -29,6 +27,11 @@ class LeaderBoard extends Component {
 }
 function mapStateToProps({ users }) {
   const usersList = Object.values(users);
+  usersList.map(
+    (user) =>
+      (user.totalScore =
+        Object.keys(user.answers).length + user.questions.length)
+  );
   return {
     usersList,
   };
