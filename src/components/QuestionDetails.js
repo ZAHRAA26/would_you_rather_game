@@ -1,36 +1,55 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { Item } from "semantic-ui-react";
+import { withRouter, BrowserRouter, Route } from "react-router-dom";
+import { Button, Item } from "semantic-ui-react";
 import AnsweredQuestionDetails from "./AnsweredQuestionDetails";
+import UnansweredQuestion from "./UnansweredQuestion";
 
 class QuestionDetails extends Component {
+  handleClick = () => {
+    const { state, question, id } = this.props;
+    this.props.history.push(`/question/${id}`);
+    console.log(state);
+    return state === "answered" ? (
+      <Route
+        path={`/question/${question[id]}`}
+        render={() => <AnsweredQuestionDetails id={question.id} />}
+      />
+    ) : state === "unanswered" ? (
+      <Route
+        path={`/question/${question[id]}`}
+        render={() => <UnansweredQuestion id={question.id} />}
+      />
+    ) : null;
+  };
   render() {
     const { question, author } = this.props;
-    const { id } = question;
     const avatar = author.avatarURL ? author.avatarURL : "placeholder.png";
-    console.log(`123${question}`);
+    console.log(`123${question.id}`);
     return (
-      <Link to={`question/${question.id}`}>
-        <Item.Group>
-          <Item>
-            <Item.Image size="small" src={`/${avatar}`} />
-            <Item.Content className="floatRight">
-              <Item.Header as="a">{author.name}</Item.Header>
-              <Item.Description>
-                <p>asks : would you rather</p>
-                <p>{question.optionOne.text}</p>
-                or
-                <p>{question.optionTwo.text}</p>
-              </Item.Description>
-            </Item.Content>
-          </Item>
-        </Item.Group>
-      </Link>
+      <BrowserRouter>
+        <div>
+          <Item.Group>
+            <Item>
+              <Item.Image size="small" src={`/${avatar}`} />
+              <Item.Content className="floatRight">
+                <Item.Header as="a">{author.name}</Item.Header>
+                <Item.Description>
+                  <p>asks : would you rather</p>
+                  <p>{question.optionOne.text}</p>
+                  or
+                  <p>{question.optionTwo.text}</p>
+                </Item.Description>
+              </Item.Content>
+            </Item>
+          </Item.Group>
+          <Button onClick={this.handleClick}>view</Button>
+        </div>
+      </BrowserRouter>
     );
   }
 }
-function mapStateToProps({ authedUser, users, questions }, { id }) {
+function mapStateToProps({ authedUser, users, questions }, { id, state }) {
   const question = questions[id];
   const author = question ? users[question.author] : null;
 
@@ -38,7 +57,8 @@ function mapStateToProps({ authedUser, users, questions }, { id }) {
     authedUser,
     question,
     author,
+    state,
   };
 }
 
-export default connect(mapStateToProps)(QuestionDetails);
+export default withRouter(connect(mapStateToProps)(QuestionDetails));

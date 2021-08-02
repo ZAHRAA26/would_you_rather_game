@@ -3,7 +3,7 @@ import QuestionDetails from "./QuestionDetails";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import AnsweredQuestionDetails from "./AnsweredQuestionDetails";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -45,14 +45,15 @@ class Dashboard extends Component {
         <Tab eventKey="Unanswered Questions" title="Unanswered Questions">
           {result.map((question) => (
             <li key={question.id}>
-              <QuestionDetails id={question.id} />
+              <QuestionDetails id={question.id} state="unanswered" />
             </li>
           ))}
         </Tab>
         <Tab eventKey="Answered Questions" title="Answered Questions">
           {result.map((question) => (
             <li key={question.id}>
-              <QuestionDetails id={question.id} />
+              {/* <BrowserRouter> */}
+              <QuestionDetails id={question.id} state="answered" />
             </li>
           ))}
         </Tab>

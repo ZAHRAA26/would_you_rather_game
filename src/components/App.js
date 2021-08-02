@@ -13,6 +13,7 @@ import NewQuestion from "./NewQuestion";
 import NotFoundPage from "./NotFoundPage";
 import AnsweredQuestionDetails from "./AnsweredQuestionDetails";
 import "../App.css";
+import UnansweredQuestion from "./UnansweredQuestion";
 
 class App extends Component {
   componentDidMount() {
@@ -32,6 +33,10 @@ class App extends Component {
                 <ProtectedRoute
                   path="/question/:id"
                   component={AnsweredQuestionDetails}
+                />
+                <ProtectedRoute
+                  path="/question/:id"
+                  component={UnansweredQuestion}
                 />
                 <ProtectedRoute path="/leaderboard" component={LeaderBoard} />
                 <Route path="/not-found" component={NotFoundPage} />
