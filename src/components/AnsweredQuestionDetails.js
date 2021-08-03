@@ -4,6 +4,7 @@ import Badge from "react-bootstrap/Badge";
 import { connect } from "react-redux";
 import { Row } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
+import UnansweredQuestion from "./UnansweredQuestion";
 class AnsweredQuestionDetails extends Component {
   render() {
     const {
@@ -21,9 +22,9 @@ class AnsweredQuestionDetails extends Component {
       return <Redirect to="/not-found" />;
     }
     return (
-      question && (
-        // (question.optionOne.votes.indexOf(authedUser) > -1 ||
-        //   question.optionTwo.votes.indexOf(authedUser) > -1) ? (
+      question &&
+      (question.optionOne.votes.indexOf(authedUser) > -1 ||
+      question.optionTwo.votes.indexOf(authedUser) > -1 ? (
         <div className="container">
           <Image src={`/${avatar}`} size="small" />)
           <Header as="h2">{author.name} asks</Header>
@@ -55,11 +56,14 @@ class AnsweredQuestionDetails extends Component {
             )}
           </Row>
         </div>
-      )
+      ) : (
+        <UnansweredQuestion id={question.id} />
+      ))
     );
   }
 }
-function mapStateToProps({ authedUser, users, questions }, { id }) {
+function mapStateToProps({ authedUser, users, questions }, props) {
+  const { id } = props.match.params;
   const question = questions[id];
   const author = question ? users[question.author] : null;
   const authed = users[authedUser];
