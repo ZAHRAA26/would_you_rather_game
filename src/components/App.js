@@ -34,10 +34,10 @@ class App extends Component {
                   path="/question/:id"
                   component={AnsweredQuestionDetails}
                 />
-                <ProtectedRoute
+                {/* <ProtectedRoute
                   path="/question/:id"
                   component={UnansweredQuestion}
-                />
+                /> */}
                 <ProtectedRoute path="/leaderboard" component={LeaderBoard} />
                 <Route path="/not-found" component={NotFoundPage} />
               </Switch>
