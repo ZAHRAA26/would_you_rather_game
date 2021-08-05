@@ -35,12 +35,33 @@ a {
   width: 250px;
   position: relative;
 }
+.progress ,.teal{
+  height: 25px;
+  margin-left: 60px;
+width:70%
+}
+.row div div div{
+  color: black;
 
+}
+[bg="Voted"]{
+  color:red
+}
+.row{
+  margin-bottom: 30px;
+}
+.ui.progress:first-child{
+  margin:0 0;
+}
+.badge{color: aquamarine;
+font-size: large;}
+.ui.red.inverted.progress .bar{
+  height: 26px;
+}
 .btn:hover {
   border-color: rgba(0,0,0,.5);
   text-decoration: none;
 }
-
 .btn:focus {
   outline: 0;
   font-weight: 700;

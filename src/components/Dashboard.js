@@ -31,6 +31,8 @@ class Dashboard extends Component {
         answered.push(questions[qId]);
       else unanswered.push(questions[qId]);
     });
+    answered.sort((a, b) => b.timestamp - a.timestamp);
+    unanswered.sort((a, b) => b.timestamp - a.timestamp);
     return this.state.key === "Unanswered Questions" ? unanswered : answered;
   };
 
@@ -69,9 +71,7 @@ class Dashboard extends Component {
 
 function mapStateToProps({ questions, authedUser }) {
   return {
-    questionIds: Object.keys(questions).sort(
-      (a, b) => questions[b].timestamp - questions[a].timestamp
-    ),
+    questionIds: Object.keys(questions),
     authedUser,
     questions,
   };

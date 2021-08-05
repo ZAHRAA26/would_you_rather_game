@@ -11,17 +11,17 @@ class NewQuestion extends Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    const { authedUser } = this.props;
     const { optionOneText, optionTwoText } = this.state;
-    this.props.dispatch(
-      handleAddQuestion(optionOneText, optionTwoText, authedUser)
-    );
+    const { dispatch, authedUser } = this.props;
+    debugger;
+    dispatch(handleAddQuestion(optionOneText, optionTwoText, authedUser));
     this.setState({
       ...this.state,
       optionOneText: "",
       optionTwoText: "",
       toHome: true,
     });
+    debugger;
   };
   handleChange = (event, option) => {
     if (option === "optionOne")
@@ -68,6 +68,8 @@ class NewQuestion extends Component {
   }
 }
 function mapStateToProps({ authedUser }) {
+  debugger;
+
   return {
     authedUser,
   };
