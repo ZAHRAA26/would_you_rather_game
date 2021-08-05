@@ -7,23 +7,6 @@ import UnansweredQuestion from "./UnansweredQuestion";
 import ProtectedRoute from "./ProtectedRoute";
 
 class QuestionDetails extends Component {
-  // handleClick = () => {
-  //   const { state, question, id } = this.props;
-  //   this.props.history.push(`/question/${id}`);
-  //   console.log(state);
-  //   debugger;
-  //   return state === "answered" ? (
-  //     <ProtectedRoute
-  //       path={`/question/${id}`}
-  //       render={() => <AnsweredQuestionDetails id={id} />}
-  //     />
-  //   ) : state === "unanswered" ? (
-  //     <ProtectedRoute
-  //       path={`/question/${id}`}
-  //       render={() => <UnansweredQuestion id={id} />}
-  //     />
-  //   ) : null;
-  // };
   render() {
     const { question, author } = this.props;
     const avatar = author.avatarURL ? author.avatarURL : "placeholder.png";
