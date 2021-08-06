@@ -47,6 +47,21 @@ width:70%
 [bg="Voted"]{
   color:red
 }
+.bar div{
+  color:black
+}
+Nav{
+  display: contents;
+}
+Item.Content,Button{
+  margin-left: 100px;
+}
+[className="liImage"]{
+  margin-top: -19px;
+}
+.btn{
+  background-color: aquamarine;
+}
 .row{
   margin-bottom: 30px;
 }
