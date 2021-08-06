@@ -11,14 +11,16 @@ function addQuestion(question) {
   };
 }
 
-export function handleAddQuestion(optionOneText, optionTwoText, authedUser) {
+export function handleAddQuestion(optionOneText, optionTwoText, author) {
   return (dispatch) => {
-    return saveQuestion({ optionOneText, optionTwoText, authedUser }).then(
-      (question) => {
-        dispatch(addQuestion(question));
-        dispatch(addQuestionToUser(question));
-      }
-    );
+    return saveQuestion({
+      optionOneText,
+      optionTwoText,
+      author,
+    }).then((question) => {
+      dispatch(addQuestion(question));
+      dispatch(addQuestionToUser(question));
+    });
   };
 }
 

@@ -26,12 +26,10 @@ function Nav(props) {
           </NavLink>
         </li>
         {props.authedUser && (
-          <div className="container">
-            <li className="liImage">
-              <img src={avatar} alt={`Avatar of ${name}`} className="avatar" />
-              {name}
-            </li>
-          </div>
+          <li className="liImage">
+            <img src={avatar} alt={`Avatar of ${name}`} className="avatar" />
+            {name}
+          </li>
         )}
       </ul>
     </nav>
