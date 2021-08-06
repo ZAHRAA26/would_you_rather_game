@@ -21,11 +21,14 @@ Then You Can see the project alive!
 
 when we select user and press sign in then we are redirected to dashboard that allow us to review all answered and unanswered question(default view)
 ![dashboard](https://drive.google.com/uc?export=view&id=1CnNaxxPytC8jUnC-eqP4wQIdaOMfmCSX)
+
 you can click on the button view to show details of any question so the details for the answered question looks like
 ![answereddetailsQ](https://drive.google.com/uc?export=view&id=1iXYbbVzgbXKRus49tGzq5DJfSiwujtPK)
 
 And the details for the unanswered question looks like from which we can answer and choose what you prefere.
+
 ![unanswereddetailsQ](https://drive.google.com/uc?export=view&id=1kTP0J2T51o7rMj8Wl_PbxjeYW67FGE99)
+
 when you select specific answer you can be redirected to see the percentages of the answeres for that question.
 
 you can add question by click on New Question from the navbar and it looks like
