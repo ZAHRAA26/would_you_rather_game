@@ -104,7 +104,8 @@ font-size: large;}
 ul {
   padding-left: 0;
 }
-
+li.liImage{margin-top: -25px;}
+div.ui{margin-left: 20px;}
 li {
   list-style-type: none;
   padding: 10px;

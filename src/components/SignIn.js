@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearAuthedUser, setAuthedUser } from "../actions/authedUser";
 import { Redirect, useLocation } from "react-router-dom";
 
@@ -8,14 +8,13 @@ function SignIn(props) {
   const [directHome, setDirectHome] = useState(false);
   const dispatch = useDispatch();
   const { state } = useLocation();
-  // useEffect(() => {
-  //   dispatch(clearAuthedUser());
-  // }, []);
+  useEffect(() => {
+    dispatch(clearAuthedUser());
+  }, [dispatch]);
   const users = useSelector((state) => state.users);
   const { from } = state || { from: { pathname: "/dashboard" } };
   const selected = userID ? userID : -1;
   console.log(from);
-  //if authenticated
   if (directHome) {
     return <Redirect push to={from} />;
   }
@@ -57,9 +56,4 @@ function SignIn(props) {
   );
 }
 
-// function mapStateToProps({ users }) {
-//   return {
-//     users,
-//   };
-// }
 export default SignIn;

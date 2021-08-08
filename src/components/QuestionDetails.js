@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter, BrowserRouter, Route } from "react-router-dom";
+import { withRouter, BrowserRouter } from "react-router-dom";
 import { Button, Item } from "semantic-ui-react";
-import AnsweredQuestionDetails from "./AnsweredQuestionDetails";
-import UnansweredQuestion from "./UnansweredQuestion";
-import ProtectedRoute from "./ProtectedRoute";
 
 class QuestionDetails extends Component {
   render() {

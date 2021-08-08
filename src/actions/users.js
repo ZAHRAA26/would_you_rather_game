@@ -11,11 +11,11 @@ export function receiveUsers(users) {
   };
 }
 
-export function addQuestionToUser({ id, authedUser }) {
+export function addQuestionToUser(id, author) {
   return {
     type: ADD_QUESTION_TO_USER,
     id,
-    authedUser,
+    author,
   };
 }
 function addAnswerToUser(authedUser, qid, answer) {
@@ -31,7 +31,6 @@ export function handleSaveQuestionAnswer(authedUser, qid, answer) {
   return (dispatch) => {
     dispatch(addAnswerToUser(authedUser, qid, answer));
     dispatch(answerQuestion(authedUser, qid, answer));
-
     return saveQuestionAnswer(authedUser, qid, answer).catch((e) => {
       console.log(e);
     });
