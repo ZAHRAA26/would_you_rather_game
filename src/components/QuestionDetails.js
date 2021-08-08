@@ -7,7 +7,6 @@ class QuestionDetails extends Component {
   render() {
     const { question, author } = this.props;
     const avatar = author.avatarURL ? author.avatarURL : "placeholder.png";
-    console.log(`123${question.id}`);
     return (
       <BrowserRouter>
         <div>
@@ -15,7 +14,7 @@ class QuestionDetails extends Component {
             <Item>
               <Item.Image size="small" src={`/${avatar}`} />
               <Item.Content className="floatRight">
-                <Item.Header as="a">{author.name}</Item.Header>
+                <p>{author.name}</p>
                 <Item.Description>
                   <p>asks : would you rather</p>
                   <p>{question.optionOne.text}</p>
