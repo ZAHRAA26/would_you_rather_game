@@ -1,17 +1,13 @@
 import React, { Component } from "react";
 import { Header, Image, Progress } from "semantic-ui-react";
-import Badge from "react-bootstrap/Badge";
 import { connect } from "react-redux";
 import { Row } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import UnansweredQuestion from "./UnansweredQuestion";
-import authedUser from "./../reducers/authedUser";
 class AnsweredQuestionDetails extends Component {
   render() {
     const {
       question,
-      authed,
-      authedUser,
       author,
       state,
       firstPercentage,
@@ -20,10 +16,11 @@ class AnsweredQuestionDetails extends Component {
       secondNumber,
       answer,
     } = this.props;
-    const avatar = author.avatarURL ? author.avatarURL : "placeholder.png";
     if (!question) {
       return <Redirect to="/not-found" />;
     }
+    const avatar = author.avatarURL ? author.avatarURL : "placeholder.png";
+
     return state ? (
       <div className="container">
         <Image src={`/${avatar}`} size="small" />
@@ -36,7 +33,7 @@ class AnsweredQuestionDetails extends Component {
             progress="percent"
             color="teal"
           ></Progress>
-          <p>{`${firstNumber} out of 3`}</p>
+          <p>{`${firstNumber} out of ${firstNumber + secondNumber} `}</p>
           {answer === "optionOne" ? "voted" : "notVoted"}
         </Row>
         <Row></Row>
@@ -47,7 +44,7 @@ class AnsweredQuestionDetails extends Component {
             progress="percent"
             color="teal"
           ></Progress>
-          <p>{`${secondNumber} out of 3`}</p>
+          <p>{`${secondNumber} out of ${firstNumber + secondNumber}`}</p>
           {answer === "optionTwo" ? "voted" : "notVoted"}
         </Row>
       </div>
@@ -64,9 +61,10 @@ function mapStateToProps({ authedUser, users, questions }, props) {
   const authed = users[authedUser];
   const firstNumber = question && question.optionOne.votes.length;
   const secondNumber = question && question.optionTwo.votes.length;
-  const state =
-    question.optionOne.votes.indexOf(authedUser) > -1 ||
-    question.optionTwo.votes.indexOf(authedUser) > -1;
+  const state = question
+    ? question.optionOne.votes.indexOf(authedUser) > -1 ||
+      question.optionTwo.votes.indexOf(authedUser) > -1
+    : null;
   const firstPercentage = (
     (firstNumber / (firstNumber + secondNumber)) *
     100

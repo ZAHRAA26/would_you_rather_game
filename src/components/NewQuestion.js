@@ -30,7 +30,6 @@ class NewQuestion extends Component {
   };
   render() {
     if (this.state.toHome) {
-      //console.log('redirecting...')
       return <Redirect to="/dashboard" />;
     }
     return (

@@ -46,9 +46,6 @@ class UnansweredQuestion extends Component {
             <Item.Description>
               <p>asks : would you rather</p>
               <Form>
-                {/* <Form.Field>
-                          Selected value: <b>{this.state.value}</b>
-                        </Form.Field> */}
                 <Form.Field>
                   <Radio
                     label={question.optionOne.text}

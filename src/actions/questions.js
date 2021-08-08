@@ -19,7 +19,7 @@ export function handleAddQuestion(optionOneText, optionTwoText, author) {
       author,
     }).then((question) => {
       dispatch(addQuestion(question));
-      dispatch(addQuestionToUser(question));
+      dispatch(addQuestionToUser(question.id, author));
     });
   };
 }
