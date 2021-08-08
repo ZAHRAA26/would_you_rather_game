@@ -33,6 +33,7 @@ when you select specific answer you can be redirected to see the percentages of 
 
 you can add question by click on New Question from the navbar and it looks like
 ![addNewQuestion](https://drive.google.com/uc?export=view&id=1ddpBBDYjeaEoDjPnYGo7w-edvtci5NoE)
+and then the author name "the name for the current user" is shown in the question details when you click on view button at unanswered question once you answer this question it will be added to answered question list.
 
 you can see the leaderBoard by click on leaderBoard from the navbar and it looks like
 ![leaderBoard](https://drive.google.com/uc?export=view&id=1nhmn5nvANUXR8K1cb-DysNfWHEG51n-O)
