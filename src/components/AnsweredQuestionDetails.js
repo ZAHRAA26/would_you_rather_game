@@ -22,7 +22,7 @@ class AnsweredQuestionDetails extends Component {
     const avatar = author.avatarURL ? author.avatarURL : "placeholder.png";
 
     return state ? (
-      <div className="container">
+      <div className="container ">
         <Image src={`/${avatar}`} size="small" />
         <Header as="h2">{author.name} asks</Header>
         <Header as="h3">Would You Rather</Header>
@@ -34,7 +34,9 @@ class AnsweredQuestionDetails extends Component {
             color="teal"
           ></Progress>
           <p>{`${firstNumber} out of ${firstNumber + secondNumber} `}</p>
-          {answer === "optionOne" ? "voted" : "notVoted"}
+         <span className={answer === "optionOne" ? "voted" : "notVoted"}>
+  {answer === "optionOne" ? "Voted ✔" : "Not Voted"}
+</span>
         </Row>
         <Row></Row>
         <Row>

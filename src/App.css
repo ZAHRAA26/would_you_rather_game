@@ -1,22 +1,150 @@
-.App {
-  text-align: center;
+/* ===== MAIN CONTAINER ===== */
+.container {
+  max-width: 900px;
+  margin: 30px auto;
+  background: #fff;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
+/* ===== NAVBAR ===== */
+.nav {
+  background: #667eea;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
 
-
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.nav ul {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.nav a {
+  color: white;
+  font-weight: bold;
+  margin-right: 15px;
+}
+
+.nav a:hover,
+.active {
+  border-bottom: 2px solid white;
+}
+
+.liImage {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* ===== SIGN IN ===== */
+#login-select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  margin: 15px 0;
+  border: 1px solid #ccc;
+}
+
+/* ===== BUTTONS ===== */
+button,
+.ui.button {
+  border-radius: 10px !important;
+  transition: 0.3s;
+}
+
+button:hover,
+.ui.button:hover {
+  transform: scale(1.05);
+}
+
+/* ===== CARDS ===== */
+.ui.items > .item {
+  background: #f9f9f9;
+  padding: 15px !important;
+  border-radius: 15px !important;
+  margin-bottom: 15px !important;
+  transition: 0.3s;
+}
+
+.ui.items > .item:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transform: scale(1.02);
+}
+
+/* ===== QUESTION DETAILS ===== */
+.floatRight {
+  padding-left: 20px;
+}
+
+.ui.image {
+  border-radius: 12px !important;
+}
+
+/* ===== ANSWERS ===== */
+.row {
+  background: #f1f1f1;
+  padding: 10px;
+  margin: 10px 0 !important;
+  border-radius: 10px;
+}
+
+.voted {
+  color: green;
+  font-weight: bold;
+}
+
+.notVoted {
+  color: gray;
+}
+
+/* ===== PROGRESS ===== */
+.ui.progress {
+  margin: 10px 0 !important;
+  border-radius: 10px !important;
+}
+
+/* ===== FORM ===== */
+.ui.form input {
+  border-radius: 10px !important;
+  padding: 10px !important;
+}
+
+/* ===== TABS ===== */
+.nav-tabs .nav-link.active {
+  background: #667eea;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* ===== LEADERBOARD ===== */
+.ui.circular.button {
+  background: #667eea !important;
+  color: white !important;
 }
 
+/* ===== NOT FOUND ===== */
+img {
+  max-width: 100%;
+  margin: 0 auto 20px;
+  display: block;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .container {
+    padding: 15px;
+  }
+
+  .nav ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
