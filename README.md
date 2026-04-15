@@ -1,39 +1,151 @@
-#Would You Rather Game
-This is the starter template for the final assessment project for Udacity's React with Redux coursre.
+# 🧠 Would You Rather Game
 
-after downloading it you will need to just install node module by this instruction:
+An interactive "Would You Rather" web application built with **React** and **Redux** that allows users to answer questions, create new ones, and compete on a leaderboard.
 
-```js
+---
+
+## 🚀 Features
+
+* 🔐 User authentication (Sign in with existing users)
+* ❓ Answer "Would You Rather" questions
+* ➕ Add new questions
+* 📊 View results with percentages and votes
+* 🏆 Leaderboard ranking users by activity
+* 🚫 404 Not Found page handling
+* 🔄 Protected routes (only logged-in users can access pages)
+
+---
+
+## 🛠️ Tech Stack
+
+* **Frontend:** React (Class & Functional Components)
+* **State Management:** Redux
+* **Routing:** React Router
+* **UI Libraries:**
+
+  * Semantic UI React
+  * React Bootstrap
+* **Styling:** CSS
+
+---
+
+## 📂 Project Structure
+
+```
+src/
+│
+├── components/
+│   ├── App.js
+│   ├── Nav.js
+│   ├── Dashboard.js
+│   ├── QuestionDetails.js
+│   ├── AnsweredQuestionDetails.js
+│   ├── UnansweredQuestion.js
+│   ├── NewQuestion.js
+│   ├── LeaderBoard.js
+│   ├── SignIn.js
+│   ├── NotFoundPage.js
+│   └── ProtectedRoute.js
+│
+├── actions/
+├── reducers/
+├── utils/
+├── App.css
+├── index.css
+└── index.js
+```
+
+---
+
+## ⚙️ Installation & Setup
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/ZAHRAA26/would_you_rather_game.git
+```
+
+2. Navigate to the project folder:
+
+```bash
+cd would_you_rather_game
+```
+
+3. Install dependencies:
+
+```bash
 npm install
 ```
 
-and then you will need to install node module writing this only line of code :
+4. Run the app:
 
-```js
+```bash
 npm start
 ```
 
-Then You Can see the project alive!
+---
 
-- first page is the home page that looks like :
+## 🧪 How to Use
 
-![homePage](https://drive.google.com/uc?export=view&id=1Dq7TBW7CxccYZf_cep2r_gAR5B05DFvA)
+1. Select a user to sign in
+2. Browse unanswered questions
+3. Answer questions and view results
+4. Add your own questions
+5. Check the leaderboard to see top users
 
-when we select user and press sign in then we are redirected to dashboard that allow us to review all answered and unanswered question(default view)
-![dashboard](https://drive.google.com/uc?export=view&id=1CnNaxxPytC8jUnC-eqP4wQIdaOMfmCSX)
+---
 
-you can click on the button view to show details of any question so the details for the answered question looks like
-![answereddetailsQ](https://drive.google.com/uc?export=view&id=1iXYbbVzgbXKRus49tGzq5DJfSiwujtPK)
+## 🔐 Protected Routes
 
-And the details for the unanswered question looks like from which we can answer and choose what you prefere.
+* `/dashboard`
+* `/add`
+* `/questions/:id`
+* `/leaderboard`
 
-![unanswereddetailsQ](https://drive.google.com/uc?export=view&id=1kTP0J2T51o7rMj8Wl_PbxjeYW67FGE99)
+Users must be logged in to access these routes.
 
-when you select specific answer you can be redirected to see the percentages of the answeres for that question.
+---
 
-you can add question by click on New Question from the navbar and it looks like
-![addNewQuestion](https://drive.google.com/uc?export=view&id=1ddpBBDYjeaEoDjPnYGo7w-edvtci5NoE)
-and then the author name "the name for the current user" is shown in the question details when you click on view button at unanswered question once you answer this question it will be added to answered question list.
+## 📸 Screenshots (Optional)
 
-you can see the leaderBoard by click on leaderBoard from the navbar and it looks like
-![leaderBoard](https://drive.google.com/uc?export=view&id=1nhmn5nvANUXR8K1cb-DysNfWHEG51n-O)
+*Add screenshots here to showcase your UI*
+
+---
+
+## 💡 Future Improvements
+
+* 🌙 Dark Mode
+* 🎨 Better UI/UX animations
+* 🔔 Notifications
+* 📱 Mobile optimization
+* 🧠 AI-generated questions
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome!
+
+1. Fork the project
+2. Create your feature branch
+3. Commit changes
+4. Push to your branch
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is open source and available under the MIT License.
+
+---
+
+## 👩‍💻 Author
+
+**Zahraa Elsayed**
+
+---
+
+## ⭐ Support
+
+If you like this project, please give it a ⭐ on GitHub!
